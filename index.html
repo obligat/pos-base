@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="fixture.js"></script>
+  <script>
+
+  let barcodes= [
+    'ITEM000000',
+    'ITEM000000',
+    'ITEM000000',
+    'ITEM000000',
+    'ITEM000000',
+    'ITEM000001',
+    'ITEM000001',
+    'ITEM000004'
+  ]
+  // 下面写实现
+  function loadAllItems() {
+    return [
+      {
+        barcode: 'ITEM000000',
+        name: '可口可乐',
+        unit: '瓶',
+        price: 3.00
+      },
+      {
+        barcode: 'ITEM000001',
+        name: '雪碧',
+        unit: '瓶',
+        price: 3.00
+      },
+      {
+        barcode: 'ITEM000002',
+        name: '苹果',
+        unit: '斤',
+        price: 5.50
+      },
+      {
+        barcode: 'ITEM000003',
+        name: '荔枝',
+        unit: '斤',
+        price: 15.00
+      },
+      {
+        barcode: 'ITEM000004',
+        name: '电池',
+        unit: '个',
+        price: 2.00
+      },
+      {
+        barcode: 'ITEM000005',
+        name: '方便面',
+        unit: '袋',
+        price: 4.50
+      }
+    ];
+  }
+  function getItems(barcodes,allItems) {
+    let cartItems=[];
+    for(let i=0;i<barcodes.length;i++){
+      for(let j=0;j<allItems.length;j++){
+        if(barcodes[i]===allItems[j].barcode){
+          cartItems.push(allItems[j]);
+        }
+      }
+      }
+    return cartItems;
+  }
+  function calculateCount(cartItems) {
+    let countedItems=[];
+    for(let i=0;i<cartItems.length;i++){
+      let exist=countedItems.find(function (item) {
+        return item.barcode===cartItems[i].barcode;
+      });
+      if (exist){
+        exist.count++;
+      }
+      else {
+         countedItems.push(Object.assign({},cartItems[i],{count:1}));
+      }
+    }
+    console.log(countedItems);
+    return countedItems;
+
+  }
+  // 写人肉测试
+  function printReceipt(barcodes) {
+    let cartItems=getItems(barcodes,loadAllItems());
+    let countedItems=calculateCount(cartItems);
+  }
+  console.log(printReceipt(barcodes));
+  </script>
+</head>
+<body>
+
+</body>
+</html>
